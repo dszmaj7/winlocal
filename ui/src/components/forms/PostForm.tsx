@@ -3,6 +3,7 @@ import { FormGroup } from "./styles/FormGroup";
 import { FormWrapper } from "./styles/FormWrapper";
 import { Input } from "../../global-styles/Input";
 import { Textarea } from "../../global-styles/Textarea";
+import Loading from "../Loading";
 
 interface Props {
   userId: number;
@@ -11,7 +12,7 @@ interface Props {
 }
 
 const PostForm: React.FC<Props> = ({ userId, formRef, closeModal }) => {
-  const [addPost] = useAddPostMutation();
+  const [addPost, { isLoading }] = useAddPostMutation();
   return (
     <FormWrapper
       onSubmit={(e) => {
@@ -37,6 +38,7 @@ const PostForm: React.FC<Props> = ({ userId, formRef, closeModal }) => {
         <Textarea id="post-content" name="postContent" minHeight="300px" required />
       </FormGroup>
       <input type="submit" hidden ref={formRef} />
+      {isLoading && <Loading />}
     </FormWrapper>
   );
 };
