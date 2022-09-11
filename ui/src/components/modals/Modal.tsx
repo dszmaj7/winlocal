@@ -1,8 +1,8 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { Button } from "../../styled/Button";
-import { ModalBackgroud, ModalBody, ModalContainer, ModalFooter, ModalHeader, ModalWrapper } from "../../styled/modal";
+import { Button } from "../../global-styles/Button";
+import { ModalBackgroud, ModalBody, ModalContainer, ModalFooter, ModalHeader, ModalWrapper } from "./styles";
 
-import ReactPortal from "./ReactPortal";
+import ReactPortal from "../ReactPortal";
 
 interface ModalProps {
   show: boolean;

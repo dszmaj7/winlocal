@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
-import { ModalProps } from "../../hooks/useModal";
-import PostForm from "../PostForm";
-import Modal from "../utils/Modal";
+import { ModalProps } from "./hooks/useModal";
+import PostForm from "../forms/PostForm";
+import Modal from "./Modal";
 
 interface Props {
   modalProps: ModalProps;
@@ -10,6 +10,7 @@ interface Props {
 const AddPost: React.FC<Props> = ({ modalProps }) => {
 
   const { id } = useParams();
+  if (!id) return null;
   return (
     <Modal
       show={modalProps.modalShow}

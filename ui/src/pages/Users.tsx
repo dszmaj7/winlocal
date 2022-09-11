@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import UserCard from "../components/UserCard";
-import Loading from "../components/utils/Loading";
+import UserCard from "../components/card/UserCard";
+import Loading from "../components/Loading";
 import { useGetUsersQuery } from "../redux/api/usersApi";
 import { User } from "../redux/types/user.type";
-import { Container } from "../styled/Container";
-import { Wrapper } from "../styled/Wrapper";
+import { Container } from "../global-styles/Container";
+import { Wrapper } from "../global-styles/Wrapper";
 
 const UsersWrapper = styled.div`
   display: flex;

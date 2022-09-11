@@ -1,9 +1,8 @@
-import { useAddPostMutation } from "../redux/api/postApi";
-import { Post } from "../redux/types/post.type";
-import { FormGroup } from "../styled/form/FormGroup";
-import { FormWrapper } from "../styled/form/FormWrapper";
-import { Input } from "../styled/Input";
-import { Textarea } from "../styled/Textarea";
+import { useAddPostMutation } from "../../redux/api/postApi";
+import { FormGroup } from "./styles/FormGroup";
+import { FormWrapper } from "./styles/FormWrapper";
+import { Input } from "../../global-styles/Input";
+import { Textarea } from "../../global-styles/Textarea";
 
 interface Props {
   userId: number;
@@ -30,7 +29,7 @@ const PostForm: React.FC<Props> = ({ userId, formRef, closeModal }) => {
     >
       <FormGroup>
         <label htmlFor="post-title">Post title:</label>
-        <Input type="text" id="postTitle" name="post-title" required />
+        <Input type="text" id="post-title" name="postTitle" required />
       </FormGroup>
 
       <FormGroup>

@@ -1,19 +1,19 @@
 import { faPlus, faReply, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import styled from "styled-components";
 import AddPost from "../components/modals/AddPost";
 import DeletePost from "../components/modals/DeletePost";
-import Loading from "../components/utils/Loading";
-import { useModal } from "../hooks/useModal";
-import { useGetUserPostsQuery } from "../redux/api/usersApi";
+import Loading from "../components/Loading";
+import { useModal } from "../components/modals/hooks/useModal";
+import { useGetUserPostsQuery, useGetUserQuery } from "../redux/api/usersApi";
 import { setPost } from "../redux/features/postSlice";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import { Post } from "../redux/types/post.type";
-import { AbsoluteIconButton } from "../styled/AbsoluteIconButton";
-import { Container } from "../styled/Container";
-import { Username } from "../styled/Username";
-import { Wrapper } from "../styled/Wrapper";
+import { AbsoluteIconButton } from "../global-styles/AbsoluteIconButton";
+import { Container } from "../global-styles/Container";
+import { Username } from "../global-styles/Username";
+import { Wrapper } from "../global-styles/Wrapper";
 
 const IconWrapper = styled.div`
   display: grid;
@@ -52,11 +52,14 @@ const ListItem = styled.li`
 `;
 
 const UserDetails: React.FC = () => {
+  const {id } = useParams();
   const dispatch = useAppDispatch();
   const userState = useAppSelector((state) => state.userSlice.user);
   const postState = useAppSelector((state) => state.postSlice.post);
   const navigate = useNavigate();
-  const { data, isLoading, isFetching } = useGetUserPostsQuery(userState.id);
+
+  const { data, isLoading, isFetching } = useGetUserPostsQuery(parseInt(id!));
+  useGetUserQuery(parseInt(id!), {skip: !!userState});
 
   const newPost = useModal();
   const deletePost = useModal();
@@ -70,7 +73,7 @@ const UserDetails: React.FC = () => {
         </IconWrapper>
 
         <Wrapper>
-          <Username>{userState.name}</Username>
+          <Username>{userState?.name}</Username>
 
           <PostsListWrapper>
             <PostsList>

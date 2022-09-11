@@ -1,6 +1,6 @@
-import { ModalProps } from "../../hooks/useModal";
+import { ModalProps } from "./hooks/useModal";
 import { useDeletePostMutation } from "../../redux/api/postApi";
-import Modal from "../utils/Modal";
+import Modal from "./Modal";
 
 interface Props {
   modalProps: ModalProps;

@@ -2,10 +2,10 @@ import { faBuilding, faEnvelope, faGlobe, faMapMarkerAlt, faPhone, faSignsPost, 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useNavigate } from "react-router";
-import { setUser } from "../redux/features/userSlice";
-import { useAppDispatch } from "../redux/store";
-import { User } from "../redux/types/user.type";
-import { CardAvatar, CardContainer, CardUser, CardUserData, CardUsername } from "../styled/card";
+import { setUser } from "../../redux/features/userSlice";
+import { useAppDispatch } from "../../redux/store";
+import { User } from "../../redux/types/user.type";
+import { CardAvatar, CardContainer, CardUser, CardUserData, CardUsername } from "./styles";
 
 interface Props {
   user: User;
@@ -17,7 +17,7 @@ const UserCard: React.FC<Props> = React.memo(({ user }) => {
 
   const onCardClick = (user: User) => {
     dispatch(setUser(user));
-    navigate(`${user.id}`);
+    navigate(`user/${user.id}`);
   };
 
   return (
