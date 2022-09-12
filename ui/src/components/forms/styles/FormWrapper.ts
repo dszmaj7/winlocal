@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const FormWrapper = styled.form`
     display: flex;
@@ -7,4 +7,3 @@ export const FormWrapper = styled.form`
     gap: 10px;
     padding: 5px;
 `;
-
