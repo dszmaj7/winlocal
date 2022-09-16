@@ -2,14 +2,19 @@ import { ModalProps } from './hooks/useModal';
 import { useDeletePostMutation } from '../../redux/api/postApi';
 import Modal from './Modal';
 import Loading from '../Loading';
+import { Post } from '../../redux/types/post.type';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { setPosts } from '../../redux/features/postSlice';
 
 interface Props {
     modalProps: ModalProps;
-    postId: number;
+    post: Post;
 }
 
-const DeletePost: React.FC<Props> = ({ modalProps, postId }) => {
+const DeletePost: React.FC<Props> = ({ modalProps, post }) => {
     const [deletePost, { isLoading }] = useDeletePostMutation();
+    const dispatch = useAppDispatch();
+    const postsState = useAppSelector(state => state.postSlice.posts);
     return (
         <>
             {isLoading && <Loading />}
@@ -20,9 +25,18 @@ const DeletePost: React.FC<Props> = ({ modalProps, postId }) => {
                 size="sm"
                 deleteBtn
                 onDelete={() =>
-                    deletePost(postId)
+                    deletePost(post.id)
                         .unwrap()
-                        .then(() => modalProps.setModalShow(false))
+                        .then(() => {
+                            dispatch(
+                                setPosts(
+                                    postsState.filter(
+                                        (element: Post) => element.id !== post.id && element.title !== post.title,
+                                    ),
+                                ),
+                            );
+                            modalProps.setModalShow(false);
+                        })
                         .catch(err => console.log('error ', err))
                 }
             >

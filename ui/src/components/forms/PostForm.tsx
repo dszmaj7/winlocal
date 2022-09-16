@@ -4,6 +4,8 @@ import { FormWrapper } from './styles/FormWrapper';
 import { Input } from '../../global-styles/Input';
 import { Textarea } from '../../global-styles/Textarea';
 import Loading from '../Loading';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { setPosts } from '../../redux/features/postSlice';
 
 interface Props {
     userId: number;
@@ -13,6 +15,8 @@ interface Props {
 
 const PostForm: React.FC<Props> = ({ userId, formRef, closeModal }) => {
     const [addPost, { isLoading }] = useAddPostMutation();
+    const dispatch = useAppDispatch();
+    const postState = useAppSelector(state => state.postSlice.posts);
     return (
         <FormWrapper
             onSubmit={e => {
@@ -24,7 +28,10 @@ const PostForm: React.FC<Props> = ({ userId, formRef, closeModal }) => {
                     body: e.currentTarget.postContent.value,
                 })
                     .unwrap()
-                    .then(() => closeModal())
+                    .then(response => {
+                        dispatch(setPosts([...postState, response]));
+                        closeModal();
+                    })
                     .catch(err => console.log('error ', err));
             }}
         >

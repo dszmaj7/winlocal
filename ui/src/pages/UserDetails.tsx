@@ -55,10 +55,10 @@ const UserDetails: React.FC = () => {
     const { id } = useParams();
     const dispatch = useAppDispatch();
     const userState = useAppSelector(state => state.userSlice.user);
-    const postState = useAppSelector(state => state.postSlice.post);
+    const postState = useAppSelector(state => state.postSlice);
     const navigate = useNavigate();
 
-    const { data, isLoading, isFetching } = useGetUserPostsQuery(parseInt(id!));
+    const { isLoading, isFetching } = useGetUserPostsQuery(parseInt(id!));
     useGetUserQuery(parseInt(id!), { skip: !!userState });
 
     const newPost = useModal();
@@ -77,7 +77,7 @@ const UserDetails: React.FC = () => {
 
                     <PostsListWrapper>
                         <PostsList>
-                            {data?.map((post: Post) => (
+                            {postState.posts.map((post: Post) => (
                                 <PostWrapper key={post.id} onClick={() => dispatch(setPost(post))}>
                                     <IconWrapper>
                                         <RemoveIcon icon={faTrash} onClick={() => deletePost.setModalShow(true)} />
@@ -105,7 +105,7 @@ const UserDetails: React.FC = () => {
             </Container>
 
             <AddPost modalProps={newPost} />
-            <DeletePost modalProps={deletePost} postId={postState.id} />
+            <DeletePost modalProps={deletePost} post={postState.post} />
         </>
     );
 };
